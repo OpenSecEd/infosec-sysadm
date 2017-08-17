@@ -23,9 +23,12 @@ infosakb-150605.pdf: infosakb-150605.tex miunexam
 infosakb-150601.pdf: infosakb-150601.tex miunexam
 
 
+-include individuals.mk
+
+
 infosak-questions.pdf: infosak-questions.tex
 
-
+EXAM_FLAGS=		-NCEi
 
 EXAM_TAGS+=		A C E
 
