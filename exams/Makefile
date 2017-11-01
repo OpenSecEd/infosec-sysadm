@@ -18,15 +18,19 @@ exam-161027.pdf: exam-161027.tex questions-161027.tex miunexam
 .PHONY: 2015
 2015: infosakb-150601.pdf infosakb-150605.pdf infosakb-150827.pdf
 
-infosakb-150827.pdf: infosakb-150827.tex miunexam
-infosakb-150605.pdf: infosakb-150605.tex miunexam
-infosakb-150601.pdf: infosakb-150601.tex miunexam
+infosakb-150827.pdf: infosakb-150827.tex miunexam miunmisc
+infosakb-150605.pdf: infosakb-150605.tex miunexam miunmisc
+infosakb-150601.pdf: infosakb-150601.tex miunexam miunmisc
 
+
+.PHONY: all
+all: 2015 2016 2017
 
 -include individuals.mk
 
 
 infosak-questions.pdf: infosak-questions.tex
+infosak-questions.pdf: miunmisc
 
 EXAM_FLAGS=		-NCEi
 
