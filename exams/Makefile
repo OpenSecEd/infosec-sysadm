@@ -53,7 +53,7 @@ all: 2015 2016 2017 2018
 infosak-questions.pdf: infosak-questions.tex
 infosak-questions.pdf: miunmisc
 
-EXAM_FLAGS=		-NCEi
+EXAM_FLAGS?=	-NCEi
 
 EXAM_TAGS+=		A C E
 
