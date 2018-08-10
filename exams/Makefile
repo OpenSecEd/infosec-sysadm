@@ -45,7 +45,7 @@ infosakb-150601.pdf: infosakb-150601.tex miunexam miunmisc
 
 
 .PHONY: all
-all: 2015 2016 2017
+all: 2015 2016 2017 2018
 
 -include individuals.mk
 
