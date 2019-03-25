@@ -51,3 +51,9 @@
 [submodule "modules/trustcomp/trustcomp"]
 	path = modules/trustcomp/trustcomp
 	url = https://github.com/OpenSecEd/trustcomp.git
+[submodule "bibedu"]
+	path = bibedu
+	url = https://github.com/dbosk/bibedu.git
+[submodule "modules/ism"]
+	path = modules/ism
+	url = https://github.com/OpenSecEd/ism.git
