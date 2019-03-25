@@ -2,7 +2,7 @@ PUB_FILES+= 	intro.html
 PUB_FILES+= 	security-society-seminar.pdf
 
 PUB_SERVER?= 	ver.miun.se
-PUB_DIR?= 		/srv/web/svn/courses/security/infosakc
+PUB_DIR?= 		/srv/web/svn/courses/security/infosakb
 PUB_USER?=
 PUB_GROUP?= 	svn
 

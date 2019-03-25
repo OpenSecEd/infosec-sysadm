@@ -15,3 +15,39 @@
 [submodule "modules/conclusion/ism"]
 	path = modules/conclusion/ism
 	url = https://github.com/OpenSecEd/ism.git
+[submodule "modules/foundations/security"]
+	path = modules/foundations/security
+	url = https://github.com/OpenSecEd/foundations.git
+[submodule "modules/foundations/usability"]
+	path = modules/foundations/usability
+	url = https://github.com/OpenSecEd/usability.git
+[submodule "modules/crypto/appliedcrypto"]
+	path = modules/crypto/appliedcrypto
+	url = https://github.com/OpenSecEd/appliedcrypto.git
+[submodule "modules/crypto/infotheory"]
+	path = modules/crypto/infotheory
+	url = https://github.com/OpenSecEd/infotheory.git
+[submodule "modules/ac/ac"]
+	path = modules/ac/ac
+	url = https://github.com/OpenSecEd/ac.git
+[submodule "modules/accountability/accountability"]
+	path = modules/accountability/accountability
+	url = https://github.com/OpenSecEd/accountability.git
+[submodule "modules/auth/auth"]
+	path = modules/auth/auth
+	url = https://github.com/OpenSecEd/auth.git
+[submodule "modules/auth/pricomlab"]
+	path = modules/auth/pricomlab
+	url = https://github.com/OpenSecEd/pricomlab.git
+[submodule "modules/privacy/privacy"]
+	path = modules/privacy/privacy
+	url = https://github.com/OpenSecEd/privacy.git
+[submodule "modules/proto/fverif"]
+	path = modules/proto/fverif
+	url = https://github.com/OpenSecEd/fverif.git
+[submodule "modules/software/software"]
+	path = modules/software/software
+	url = https://github.com/OpenSecEd/software.git
+[submodule "modules/trustcomp/trustcomp"]
+	path = modules/trustcomp/trustcomp
+	url = https://github.com/OpenSecEd/trustcomp.git

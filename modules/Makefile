@@ -1,6 +1,14 @@
 PUB_FILES+= index.html
 
 SUBDIR+= 	intro
+SUBDIR+= 	foundations
+SUBDIR+= 	crypto
+SUBDIR+= 	auth
+SUBDIR+= 	proto
+SUBDIR+= 	ac
+SUBDIR+= 	accountability
+SUBDIR+= 	trustcomp
+SUBDIR+= 	software
 SUBDIR+= 	conclusion
 
 SUBDIR_GOALS= 	all clean distclean publish
