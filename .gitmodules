@@ -9,3 +9,9 @@
 [submodule "miuntex"]
 	path = miuntex
 	url = https://github.com/dbosk/miuntex.git
+[submodule "modules/intro/ethics"]
+	path = modules/intro/ethics
+	url = https://github.com/OpenSecEd/ethics.git
+[submodule "modules/conclusion/ism"]
+	path = modules/conclusion/ism
+	url = https://github.com/OpenSecEd/ism.git
