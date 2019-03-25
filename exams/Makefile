@@ -1,18 +1,39 @@
+EXAM_NAME= 		DV026G
+
+YEARS+= 		2018
+EXAM_IDS-2018= 	180607 180827 190109
+
+EXAM_DATE-180607= 	2018-06-07
+EXAM_DATE-180827= 	2018-08-27
+EXAM_DATE-190109= 	2019-01-09
+
+define exam_id_template=
+.PHONY: $(1)
+EXAM_IDS+= 		${EXAM_IDS-$(1)}
+$(1): 			$(foreach d,${EXAM_IDS-$(1)}, ${EXAM_NAME}-$d.pdf)
+endef
+
+$(foreach y,${YEARS},$(eval $(call exam_id_template,$y)))
+
 .PHONY: 2017
-2017:			exam-170526.pdf exam-170828.pdf exam-171107.pdf
+2017:			${EXAM_NAME}-170526.pdf
+2017: 			${EXAM_NAME}-170828.pdf
+2017: 			${EXAM_NAME}-171107.pdf
 EXAM_IDS+=		170526 170828 171107
 
-exam-170526.pdf: miunexam
-exam-170828.pdf: miunexam
-exam-171107.pdf: miunexam
+${EXAM_NAME}-170526.pdf: miunexam
+${EXAM_NAME}-170828.pdf: miunexam
+${EXAM_NAME}-171107.pdf: miunexam
 
 
 .PHONY: 2016
-2016: exam-160601.pdf exam-160816.pdf exam-161027.pdf
+2016: 			${EXAM_NAME}-160601.pdf
+2016: 			${EXAM_NAME}-160816.pdf
+2016: 			${EXAM_NAME}-161027.pdf
 
-exam-160601.pdf: exam-160601.tex miunexam
-exam-160816.pdf: exam-160816.tex miunexam
-exam-161027.pdf: exam-161027.tex questions-161027.tex miunexam
+${EXAM_NAME}-160601.pdf: ${EXAM_NAME}-160601.tex miunexam
+${EXAM_NAME}-160816.pdf: ${EXAM_NAME}-160816.tex miunexam
+${EXAM_NAME}-161027.pdf: ${EXAM_NAME}-161027.tex ${EXAM_QNAME}-161027.tex miunexam
 
 
 .PHONY: 2015
@@ -24,7 +45,7 @@ infosakb-150601.pdf: infosakb-150601.tex miunexam miunmisc
 
 
 .PHONY: all
-all: 2015 2016 2017
+all: 2015 2016 2017 2018
 
 -include individuals.mk
 
@@ -32,7 +53,7 @@ all: 2015 2016 2017
 infosak-questions.pdf: infosak-questions.tex
 infosak-questions.pdf: miunmisc
 
-EXAM_FLAGS=		-NCEi
+EXAM_FLAGS?=	-NCEi
 
 EXAM_TAGS+=		A C E
 
@@ -79,12 +100,11 @@ EXAM_TAGS+=		sidechannels
 
 # Questions databases from previously generated exams
 
-EXAM_DBS+=		$(foreach id,${EXAM_IDS}, questions-${id}.tex)
-EXAM_DBS+=		questions-161027.tex exam-160816.tex exam-160601.tex
+EXAM_DBS+=		$(foreach id,${EXAM_IDS}, ${EXAM_QNAME}-${id}.tex)
+EXAM_DBS+=		${EXAM_QNAME}-161027.tex
+EXAM_DBS+= 		${EXAM_NAME}-160816.tex
+EXAM_DBS+= 		${EXAM_NAME}-160601.tex
 EXAM_DBS+=		infosakb-150827.tex infosakb-150605.tex infosakb-150601.tex
-EXAM_DBS+=		./exam-20130603/exam-20130603.tex
-EXAM_DBS+=		./exam-20120828/exam-20120828.tex
-EXAM_DBS+=		./exam-20120530/exam-20120530.tex
 
 
 
