@@ -1,7 +1,38 @@
-\documentclass[a4paper]{llncs}
+\documentclass[a4paper,UKenglish]{article}
+\usepackage{beamerarticle}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
 \input{preamble.tex}
 \pagestyle{plain}
 
+\usepackage{authblk}
+
+\title{%
+  A study guide to Information Security for systems administrators
+}
+\author{%
+  Daniel Bosk
+}
+\affil{%
+  Department of Information Systems and Technology\\
+  Mid Sweden University, Sundsvall
+}
+\affil{%
+  School of Computer Science and Communication\\
+  KTH Royal Institute of Technology, Stockholm\\
+}
+
+\date{\today}
+
 \begin{document}
+\maketitle
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+
 \input{contents.tex}
 \end{document}
