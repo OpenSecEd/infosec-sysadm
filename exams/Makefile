@@ -89,6 +89,11 @@ EXAM_TAGS+=		sidechannels
 EXAM_DBS+=		$(foreach id,${EXAM_IDS}, ${EXAM_QNAME}-${id}.tex)
 
 
+PUB_SERVER?=    ver.miun.se
+PUB_DIR?=       /srv/web/svn/courses/security/infosakb/exams
+PUB_FILES?=     $(foreach id,$(foreach y,${YEARS}, ${EXAM_IDS-$y}), ${EXAM_NAME}-${id}.pdf)
+
+
 ### Generate targets for all years ###
 
 define exam_id_template=
@@ -127,5 +132,6 @@ clean:
 INCLUDE_MIUNTEX=../miuntex
 INCLUDE_MAKEFILES=../makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
+include ${INCLUDE_MAKEFILES}/pub.mk
 include ${INCLUDE_MAKEFILES}/exam.mk
 include ${INCLUDE_MAKEFILES}/miun.depend.mk
