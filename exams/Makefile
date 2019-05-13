@@ -7,33 +7,19 @@ EXAM_DATE-180607= 	2018-06-07
 EXAM_DATE-180827= 	2018-08-27
 EXAM_DATE-190109= 	2019-01-09
 
-define exam_id_template=
-.PHONY: $(1)
-EXAM_IDS+= 		${EXAM_IDS-$(1)}
-$(1): 			$(foreach d,${EXAM_IDS-$(1)}, ${EXAM_NAME}-$d.pdf)
-endef
-
-$(foreach y,${YEARS},$(eval $(call exam_id_template,$y)))
-
-.PHONY: 2017
-2017:			${EXAM_NAME}-170526.pdf
-2017: 			${EXAM_NAME}-170828.pdf
-2017: 			${EXAM_NAME}-171107.pdf
-EXAM_IDS+=		170526 170828 171107
+YEARS+= 		2017
+EXAM_IDS-2017=	170526 170828 171107
 
 ${EXAM_NAME}-170526.pdf: miunexam
 ${EXAM_NAME}-170828.pdf: miunexam
 ${EXAM_NAME}-171107.pdf: miunexam
 
-
-.PHONY: 2016
-2016: 			${EXAM_NAME}-160601.pdf
-2016: 			${EXAM_NAME}-160816.pdf
-2016: 			${EXAM_NAME}-161027.pdf
+YEARS+= 		2016
+EXAM_IDS-2016= 	160601 160816 161027
 
 ${EXAM_NAME}-160601.pdf: ${EXAM_NAME}-160601.tex miunexam
 ${EXAM_NAME}-160816.pdf: ${EXAM_NAME}-160816.tex miunexam
-${EXAM_NAME}-161027.pdf: ${EXAM_NAME}-161027.tex ${EXAM_QNAME}-161027.tex miunexam
+${EXAM_NAME}-161027.pdf: ${EXAM_NAME}-161027.tex questions-161027.tex miunexam
 
 
 .PHONY: 2015
@@ -45,7 +31,7 @@ infosakb-150601.pdf: infosakb-150601.tex miunexam miunmisc
 
 
 .PHONY: all
-all: 2015 2016 2017 2018
+all: 2015 ${YEARS}
 
 -include individuals.mk
 
@@ -101,11 +87,41 @@ EXAM_TAGS+=		sidechannels
 # Questions databases from previously generated exams
 
 EXAM_DBS+=		$(foreach id,${EXAM_IDS}, ${EXAM_QNAME}-${id}.tex)
-EXAM_DBS+=		${EXAM_QNAME}-161027.tex
-EXAM_DBS+= 		${EXAM_NAME}-160816.tex
-EXAM_DBS+= 		${EXAM_NAME}-160601.tex
-EXAM_DBS+=		infosakb-150827.tex infosakb-150605.tex infosakb-150601.tex
 
+
+### Generate targets for all years ###
+
+define exam_id_template=
+.PHONY: $(1)
+EXAM_IDS+=      ${EXAM_IDS-$(1)}
+$(1):           $(foreach d,${EXAM_IDS-$(1)}, ${EXAM_NAME}-$d.pdf)
+
+.PHONY: clean clean-$(1)
+clean: clean-$(1)
+clean-$(1):
+	${RM} $(foreach d,${EXAM_IDS-$(1)}, ${EXAM_NAME}-$d.pdf)
+endef
+
+$(foreach y,${YEARS},$(eval $(call exam_id_template,$y)))
+
+
+### Don't expect questions-%.tex for exams from before 2017 ###
+
+$(foreach exam_id,$(foreach y,2014 2015 2016, ${EXAM_IDS-$y}),\
+    $(eval EXAM_QNAME-${exam_id}=${EXAM_NAME}))
+
+
+### All exams depends on literature.bib ###
+
+${EXAM_NAME}-%.pdf: literature.bib
+
+literature.bib: $(shell find ../ -name \*.bib)
+	bibtool --preserve.key.case=on --print.deleted.entries=off -s -d -o $@ $^
+
+
+.PHONY: clean
+clean:
+	${RM} literature.bib
 
 
 INCLUDE_MIUNTEX=../miuntex
