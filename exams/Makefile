@@ -39,50 +39,26 @@ all: 2015 ${YEARS}
 infosak-questions.pdf: infosak-questions.tex
 infosak-questions.pdf: miunmisc
 
-EXAM_FLAGS?=	-NCEi
+
+#EXAM_FLAGS?=	-NCEi
+EXAM_FLAGS?=	-NCi
+
+EXAM_DBS+= 		$(shell find ../modules -name \*.tex)
 
 EXAM_TAGS+=		A C E
-
-EXAM_DBS+=		infosak-questions.tex
-EXAM_TAGS+=		passwd
-
-# Questions databases from learning modules
-
-#EXAM_DBS+=		../modules/foundations/overview/questions.tex
 EXAM_TAGS+=		foundations
-
-#EXAM_DBS+=		../modules/infotheory/basics/questions.tex
 EXAM_TAGS+=		infotheory
-
-#EXAM_DBS+=		../modules/appliedcrypto/overview/questions.tex
 EXAM_TAGS+=		crypto
-
-#EXAM_DBS+=		../modules/auth/overview/questions.tex
 EXAM_TAGS+=		auth
-
-EXAM_DBS+=		../modules/ac/overview/questions.tex
+EXAM_TAGS+=		passwd
 EXAM_TAGS+=		ac
-
-#EXAM_DBS+=		../modules/ac/refmon/questions.tex
-#EXAM_TAGS+=		refmon
-
-#EXAM_DBS+=		../modules/usability/overview/questions.tex
 EXAM_TAGS+=		usability
-
-#EXAM_DBS+=		../modules/fverif/intro/questions.tex
-#EXAM_TAGS+=		fverif
-
-EXAM_DBS+= 		../modules/accountability/overview/questions.tex
+EXAM_TAGS+=		proto
 EXAM_TAGS+= 	accountability
-
-EXAM_DBS+= 		../modules/software/overview/questions.tex
 EXAM_TAGS+= 	software
-
-EXAM_DBS+= 		../modules/trustcomp/overview/questions.tex
 EXAM_TAGS+= 	trustcomp
-
-EXAM_DBS+=		../modules/sidechannels/overview/questions.tex
 EXAM_TAGS+=		sidechannels
+
 
 # Questions databases from previously generated exams
 
@@ -120,8 +96,7 @@ $(foreach exam_id,$(foreach y,2014 2015 2016, ${EXAM_IDS-$y}),\
 
 ${EXAM_NAME}-%.pdf: literature.bib
 
-literature.bib: $(shell find ../ -name \*.bib)
-	bibtool --preserve.key.case=on --print.deleted.entries=off -s -d -o $@ $^
+literature.bib: literature.bib($(shell find ../ -name \*.bib))
 
 
 .PHONY: clean
