@@ -1,0 +1,241 @@
+\question[3]
+% tags: ac:auth:accountability:crypto:usability
+% tags: E:C:A
+You're having dinner with a few enthusiastic entrepreneurs, start-up starters 
+and tech trendsters.
+They want to create a revolutionizing food ordering app:
+a user should be able to keep favourite orders (\eg custom pizzas) for easy 
+reordering, easy but secure payments and delivery.
+
+If the app doesn't have any security, it won't survive at all.
+(If someone can order pizza at the expense of someone else, this is not going 
+to work.)
+You need great usability (to compete with the gazillion other food-ordering 
+apps) and great privacy (also to compete with the gazillion other food-ordering 
+apps).
+(Well, nowadays, maybe the app won't survice the GDPR fines if it doesn't have 
+privacy.)
+
+What properties do you need for the different functions, what user data do they 
+require?
+(Remember: the principle of data minimization!)
+
+Note: You don't have to rely on existing technologies, such as credit cards or 
+Swish, you must specify the security and privacy properties you need for any 
+function, \eg the payment system (that includes if you want to use Swish too).
+There can be separate food and delivery services, they don't have to be the 
+same, whatever you see fit to maximize security, privacy and usability.
+Remember, you're working with some enthusiastic entrepreneurs who will not 
+hesitate to create another trendy-tech start-up.
+
+You're expected to use (\ie show) your knowledge and skills from the topics 
+access control, authentication, accountability and usability.
+You will also use (\ie show) your knowledge of some high-level properties from 
+cryptography.
+(Don't leave the exam room early, spend more time on this question instead, 
+remember it's the size of 4--5 questions.)
+
+\begin{solution}
+  Keeping favourite orders \etc can be done by storing the data in the 
+  smartphone app.
+  That way it never leaves the user, hence it will not cause any problems.
+  Then the user can back it up using the same means as for his or her other 
+  data.
+
+  For delivery, the address must be given to the delivery service, otherwise 
+  they don't know where to deliver.
+
+  The actual order, \eg pizzas and custom pizzas, must be given to the food 
+  service, otherwise they don't know what to prepare.
+  The food service can be different from the delivery service: the delivery 
+  service only needs to know they deliver food (so they can keep it warm or 
+  cold), the food service doesn't need to know where their products are 
+  delivered.
+
+  Both services must be compensated, the food service wants money for their 
+  products, the delivery service wants money for the delivery.
+  The food service shouldn't learn the cost of the delivery, that leaks some 
+  information about the destination (\eg longer distance costs more).
+  The delivery service shouldn't learn the price of the food, that leaks 
+  information about the client (pricy food, wealthy client, good for robbery?).
+
+  The payment system must support anonymous payments, \ie if Alice pays Bob 
+  twice, Bob cannot link those payments together (and thus not link them to 
+  Alice).
+  It must also be secure, so that Alice cannot pay from Bob's account.
+
+  The delivery service must deliver the right food to the right address.
+  The food service must give the right food to the right delivery person.
+  There must be an identifier, such as an order number, that is the same for 
+  both.
+  The delivery person must prove that he or she is authorized to pick up the 
+  food (otherwise someone can say they're the delivery person although they're 
+  not and simply steal the food).
+  We can solve this as follows:
+  When a user orders food, he or she will first book and pay the delivery 
+  service.
+  While doing this, he or she can give the delivery service a token.
+  Then the user proceeds to pay the food at the food service, saying that the 
+  person picking the food will present that token.
+  This token will be hard to guess and will only be used once.
+\end{solution}
+
+\question[3]
+  % tags: trustcomp:crypto:E:C:A
+  Alice wants to provide confidentiality to a file.
+  \begin{parts}
+    \part She can accomplish this through mechanisms provided in the operating 
+    system.
+    Explain how this works and what the limits are.
+
+    \part She can also accomplish this through purely cryptographic mechanisms.
+    Explain how this works and what the limits are.
+  \end{parts}
+
+  \begin{solution}
+    The first way she's securing her file is by using access control mechanisms 
+    in the operating system (OS).
+
+    Assuming we have physical access to the computer, then we can just read the 
+    raw data from the disk.
+    This can be accomplished by either booting our own OS on her computer, or 
+    by removing the disk.
+
+    If we don't have physical access we can always try to bypass the access 
+    control mechanisms in other ways, e.g.\ by gaining privileges in the system 
+    or seeing if the OS has failed to protect reading from the raw disk (i.e.\ 
+    not using the file system).
+
+    The main point here is that the operating system must be working correctly 
+    for its mechanisms to be effective.
+    The \emph{running} operating system will provide confidentiality by not 
+    allowing other users' requests to open the file.
+
+    The most obvious way to have system independent security for this file is 
+    to encrypt it, i.e.~using cryptographic mechanisms.
+    This way no one can read it unless they have access to the key, and this is 
+    true no matter if you change the environment.
+    (Of course, if the system is untrusted someone can get to the key that way, 
+    but that's outside the scope of this question.)
+  \end{solution}
+
+
+  
+\question[3]
+% tags: infotheory:E:C:A
+Browser fingerprinting attemtps to build a unique fingerprint for a web browser 
+to track it across the web without making it store cookies.
+Whenever a browser connects to a web server it gives some information to it, 
+\eg browser make and model (\eg Firefox v59.0) which fonts are available \etc.
+Explain how this can be used to create a unique fingerprint to track browsers 
+(\ie users) across the web.
+How much data is required?
+(You don't have to give any numbers, just how to calculate them.)
+
+\begin{solution}
+  Browser versions vary, how often and when people update varies too.
+  So there will be several browser versions used at the same time.
+  On top of that, several browsers as well.
+  Add a variety of fonts, plugins \etc.
+  These can be combined in many ways.
+
+  If there are many possible combinations, then the probability of two users 
+  sharing the same setup is small.
+  Thus these data yield a unique fingerprint to identity a user (\ie user's web 
+  browser).
+
+  We can see each property as a random variable and use entropy as a measure of 
+  how much information they provide.
+  We would then need the (base 2) logarithm of the number of people in the world 
+  to uniquely track everyone.
+\end{solution}
+\question[3]
+  % tags: foundations
+  The terms \enquote{data} and \enquote{information} are related but not the 
+  same.
+  Discuss how they are related and how this affects the term 
+  \enquote{security}, as in \enquote{data security} and \enquote{information 
+  security}.
+
+  \begin{solution}
+  Data is an encoded representation of information.
+  Data can be manipulated by formal rules to infer new information.
+  E.g.\ the data \enquote{\(x+1 = 0\)} does not directly reveal the value of 
+  \(x\), but we can manipulate the data with formal rules (equation solving) 
+  and infer the value of \(x\) (\(x = -1\)).
+
+  The same applies for other situations:
+  When sending data over an anonymizing network (e.g.\ Tor), we only reveal the 
+  size and timing of the packets sent.
+  However, these can be statistically correlated to the packets exiting the 
+  network, thus the sender and recipient can be inferred.
+  \end{solution}
+\question[3]
+  % tags: passwd:infotheory:usability:E:C:A
+  You are asked to analyse two password policies.
+  The policies are the following:
+  \begin{description}
+    \item[basic12]
+      Let \emph{the user choose} at least 12 characters consisting of: upper 
+      and lower case, numbers.
+    \item[randswedict4]
+      \emph{Generate a password for the user} by randomly choosing four words 
+      from the Dictionary of the Swedish Language (SAOL).
+      This dictionary contains approximately 125\,000 words.
+  \end{description}
+  Analyse the two policies: what are the advantages and disadvantages of each, 
+  how do they compare to each other.
+\question[3]
+% tags: software:passwd:E:C:A
+Review the following piece of code.
+Identify potential problems and explain why they are problems.
+
+This is a shell script by the name of pwdauth, it runs with root priviledges.
+\begin{lstlisting}
+#!/bin/bash
+# pwdauth <user>
+
+# get the username from command line
+username = $1
+
+echo "Please enter the password for $username:"
+read passwd
+
+real_passwd = $(cat /secure/passwds | grep $username)
+
+if [ $passwd = $real_passwd ]; then
+  sudo -u $username /bin/bash
+  exit 0
+else
+  exit 1
+fi
+\end{lstlisting}
+
+\begin{solution}
+  There are several problems.
+  For example the username variable is not protected with quotation marks, 
+  meaning it will be parsed.
+  This means that commends and arguments can be injected as part of the 
+  username.
+
+  When getting the real password, one can pass a new file to search instead of 
+  /secure/passwds.
+  Also, one can set passwd to \verb'1 = 1 -o 1' to make the password check 
+  always succeed.
+
+  Since the program is running as root, one can get root priviledges by 
+  exploiting this program.
+\end{solution}
+
+\question[2]\label{q:sidechannels}
+% tags: sidechannels:E:C:A
+Describe an attack scenario where a side-channel is of central interest.
+
+\begin{solution}
+  The adversary is interested in learning classified information.
+  They set up a device which records electromagnetic emissions to reconstruct 
+  the image on a screen, thus when a target works with the classified data on 
+  the computer the adversary sees the same image.
+  This is a passive attack.
+\end{solution}
+
